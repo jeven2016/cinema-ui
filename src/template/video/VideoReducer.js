@@ -1,6 +1,7 @@
 import {
   TYPE_QUERY_FAVORITE_MOVIE,
-  TYPE_QUERY_MOVIE_DETAIL
+  TYPE_QUERY_MOVIE_DETAIL,
+  TYPE_QUERY_MOVIE_PAGE
 } from '../common/AppActionTypes';
 
 export const movieDetail = (state = {
@@ -25,6 +26,14 @@ export const favoriteMovies = (state = [],
     action) => {
   if (action.type === TYPE_QUERY_FAVORITE_MOVIE) {
     return [...action.result]; // return the list of favorite videos
+  }
+  return state;
+};
+
+export const videoPage = (state = {},
+    action) => {
+  if (action.type === TYPE_QUERY_MOVIE_PAGE) {
+    return {...action.result}; // return the list of favorite videos
   }
   return state;
 };

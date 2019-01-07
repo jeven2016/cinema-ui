@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {faFilm, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Hammer from "rc-hammerjs";
 import is from "is_js";
+import VideoPanels from "./VideoPanels";
 
 class VideoHome extends Component {
   constructor(args) {
@@ -15,13 +16,20 @@ class VideoHome extends Component {
     const {history, link = ""} = this.props;
 
     //navigate to a specific sub page
-    if(is.not.empty(link)){
+    if (is.not.empty(link)) {
       history.push(link);
     }
   }
 
   render() {
-    let {data, type} = this.props;
+    let {data, type, showInfo = true} = this.props;
+
+    let infoArea = null;
+    if (showInfo) {
+      infoArea = <div className="ui-card-mask">
+        连载30集/共50集
+      </div>;
+    }
 
     return (
         <div>
@@ -39,34 +47,7 @@ class VideoHome extends Component {
           </div>
 
           <div className="row">
-            {
-              data.map(video => {
-                return (
-                    <div className="col-xs-6 col-sm-3" key={video.id}>
-                      <Link to={{
-                        pathname: `/video/detail/${video.id}`,
-                        query: video
-                      }}>
-                        <div className="card" style={{width: '100%'}}>
-                          <div className="ui-card-mask">
-                            连载30集/共50集
-                          </div>
-                          <div className="card-img">
-                            <img className="img" src={video.imageUrl}
-                                 width="100%"/>
-                            <div className="overlay-title">
-                              <h4 className="ui-video-name">{video.name}</h4>
-                            </div>
-                          </div>
-                          <div className="card-row">
-                            <h6 className="ui-video-actors">{video.actors}</h6>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                );
-              })
-            }
+            <VideoPanels videos={data} infoArea={infoArea}/>
           </div>
         </div>
     );

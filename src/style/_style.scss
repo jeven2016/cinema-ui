@@ -2,7 +2,6 @@ body {
   color: #666666;
 }
 
-
 .row > *[class^=col-] {
   padding: 0.25rem 0.25rem;
 }
@@ -103,13 +102,22 @@ h6 {
 }
 
 .ui-video-name, .ui-video-actors {
+  height: 1.125rem;
   overflow: hidden;
 }
 
-.ui-card-mask{
+.ui-card-mask {
   position: absolute;
   color: #fff;
-  top:0;
-  right:0;
-  background-color: rgba(0,0,0,.4);
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.ui-home-img {
+  height: 15.625rem;
 }

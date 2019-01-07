@@ -33,7 +33,7 @@ export default class TeleplayHome extends Component {
                             <img className="img" src={teleplay.imageUrl}
                                  width="100%"/>
                             <div className="overlay-title">
-                              <h4 className="ui-video-name">{teleplay.name}</h4>
+                              <h5 className="ui-video-name">{teleplay.name}</h5>
                             </div>
                           </div>
                           <div className="card-row">

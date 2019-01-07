@@ -1,5 +1,6 @@
 import {queryHomeList} from "../common/Uri";
 import {TYPE_QUERY_VIDEO_LIST} from "../common/AppActionTypes";
+import "whatwg-fetch";
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');

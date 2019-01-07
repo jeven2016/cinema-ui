@@ -40,7 +40,7 @@ class FavoriteList extends BaseComponent {
                             <img className="img" src={movie.imageUrl}
                                  width="100%"/>
                             <div className="overlay-title">
-                              <h4 className="ui-video-name">{movie.name}</h4>
+                              <h5 className="ui-video-name">{movie.name}</h5>
                             </div>
                           </div>
                           <div className="card-row">

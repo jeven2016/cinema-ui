@@ -28,7 +28,7 @@ class HomeContent extends BaseComponent {
     console.log("the new list is: ", this.props.videoList);
     return (
         <div>
-          <VideoHome type="电影" data={this.props.videoList.movie} link="/movie"/>
+          <VideoHome type="电影" showInfo={false} data={this.props.videoList.movie} link="/movie"/>
           <VideoHome type="电视" data={this.props.videoList.teleplay}/>
           <VideoHome type="综艺" data={this.props.videoList.varietyShow}/>
           <VideoHome type="卡通" data={this.props.videoList.cartoon}/>

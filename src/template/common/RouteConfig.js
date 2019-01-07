@@ -11,6 +11,7 @@ export default class RouteConfig extends Component {
         <Switch>
           <Route exact path="/" component={HomeContent}/>
           <Route exact path="/movie" component={MainMovie}/>
+          <Route exact path="/movie/page/:pageNumber" component={MainMovie}/>
           <Route exact path="/video/detail/:id" component={MovieDetail}/>
           <Route component={NoMatchComponent}/>
         </Switch>

@@ -1,13 +1,28 @@
 import React, {Component} from 'react';
-import Pic from "../images/pic.jpg";
-import {faFilm, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faFilm} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import FilterItems from "../common/FilterItems";
 import Paging from "../common/Paging";
+import {queryVideoPage} from "./VideoAction";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import VideoPanels from "./VideoPanels";
 
-export default class MovieHome extends Component {
+class MovieHome extends Component {
+  constructor(args) {
+    super(args);
+    this.state = {
+      currentPage: 0
+    };
+  }
+
+  componentDidMount() {
+    const {queryVideoPage} = this.props;
+    queryVideoPage(this.state.currentPage);
+  }
 
   render() {
+    const {videoPage} = this.props;
     return (
         <div>
           <FilterItems/>
@@ -25,63 +40,19 @@ export default class MovieHome extends Component {
           </div>
 
           <div className="row">
-            <div className="col-xs-6 col-sm-3">
-              <div className="card" style={{width: '100%'}}>
-                <div className="card-img">
-                  <img className="img" src={Pic} width="100%"/>
-                  <div className="overlay-title">
-                    <h4>追捕</h4>
-                  </div>
-                </div>
-                <div className="card-row">
-                  <h6>杰西卡·罗德,伊瑟尔·布...</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xs-6 col-sm-3">
-              <div className="card" style={{width: '100%'}}>
-                <div className="card-img">
-                  <img className="img" src={Pic} width="100%"/>
-                  <div className="overlay-title">
-                    <h4>追捕</h4>
-                  </div>
-                </div>
-                <div className="card-row">
-                  <h6>杰西卡·罗德,伊瑟尔·布...</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xs-6 col-sm-3">
-              <div className="card" style={{width: '100%'}}>
-                <div className="card-img">
-                  <img className="img" src={Pic} width="100%"/>
-                  <div className="overlay-title">
-                    <h4>追捕</h4>
-                  </div>
-                </div>
-                <div className="card-row">
-                  <h6>杰西卡·罗德,伊瑟尔·布...</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-xs-6 col-sm-3">
-              <div className="card" style={{width: '100%'}}>
-                <div className="card-img">
-                  <img className="img" src={Pic} width="100%"/>
-                  <div className="overlay-title">
-                    <h4>追捕</h4>
-                  </div>
-                </div>
-                <div className="card-row">
-                  <h6>杰西卡·罗德,伊瑟尔·布...</h6>
-                </div>
-              </div>
-            </div>
+            <VideoPanels videos={videoPage.videoList}/>
           </div>
-
-          <Paging/>
-
+          <Paging currentPage={videoPage.currentPage}
+                  totalPages={videoPage.totalPages}
+                  totalCount={videoPage.totalCount}/>
         </div>
     );
   }
 }
+
+export default connect((state) => {
+      return {videoPage: state.videoPage}
+    },
+    (dispatch) => {
+      return bindActionCreators({queryVideoPage}, dispatch)
+    })(MovieHome)

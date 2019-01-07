@@ -98,7 +98,7 @@ class VideoDetail extends BaseComponent {
     const {imageUrl, score, name, language, year, videoType, actors} = this.props.movieDetail;
     return <div className="card-row">
       <div className="row">
-        <div className="col-xs-3">
+        <div className="col-xs-4">
           <div>
             <img className="img"
                  src={imageUrl}
@@ -108,7 +108,7 @@ class VideoDetail extends BaseComponent {
             </div>
           </div>
         </div>
-        <div className="col-xs-9">
+        <div className="col-xs-8">
           <div className="col-xs-12">
             <h4 className="text color-blue">{name}</h4>
           </div>
