@@ -1,24 +1,49 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {faFilm} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import FilterItems from "../common/FilterItems";
-import Paging from "../common/Paging";
+import Paging from "./Paging";
 import {queryVideoPage} from "./VideoAction";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import VideoPanels from "./VideoPanels";
+import is from "is_js";
+import {withRouter} from "react-router-dom";
+import BaseComponent from "../common/BaseComponent";
 
-class MovieHome extends Component {
+class MainHome extends BaseComponent {
   constructor(args) {
     super(args);
-    this.state = {
-      currentPage: 0
-    };
+    this.goTo = this.goTo.bind(this);
   }
 
   componentDidMount() {
-    const {queryVideoPage} = this.props;
-    queryVideoPage(this.state.currentPage);
+    console.log("mount now ~~~~~~~~~~~");
+    this.switchPage();
+  }
+
+  switchPage() {
+    const {queryVideoPage, location} = this.props;
+    let currentPage = is.existy(location.page) ? location.page : 0;
+    queryVideoPage(currentPage);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("update now ~~~~~~~~~~~");
+    let currentPage = this.props.location.page;
+    if (!is.existy(currentPage)) {
+      return;
+    }
+    if (currentPage !== prevProps.location.page) {
+      this.switchPage();
+    }
+  }
+
+  goTo(pageNumber) {
+    const {history} = this.props;
+    // history.push("/movie");
+    history.push({pathname: "/movie", page: pageNumber});
+    console.log("goto " + pageNumber);
   }
 
   render() {
@@ -44,15 +69,17 @@ class MovieHome extends Component {
           </div>
           <Paging currentPage={videoPage.currentPage}
                   totalPages={videoPage.totalPages}
-                  totalCount={videoPage.totalCount}/>
+                  totalCount={videoPage.totalCount}
+                  goTo={this.goTo}
+          />
         </div>
     );
   }
 }
 
-export default connect((state) => {
+export default withRouter(connect((state) => {
       return {videoPage: state.videoPage}
     },
     (dispatch) => {
       return bindActionCreators({queryVideoPage}, dispatch)
-    })(MovieHome)
+    })(MainHome));
