@@ -7,6 +7,8 @@ import connect from "react-redux/es/connect/connect";
 import BaseComponent from "../common/BaseComponent";
 import is from "is_js";
 import {scrollTo} from "../common/CommonUtil";
+import {videoDetailRoute} from "../common/RouteConfig";
+import {withRouter} from "react-router-dom";
 
 class VideoDetail extends BaseComponent {
   static panelTypes = {
@@ -158,23 +160,8 @@ class VideoDetail extends BaseComponent {
   getPlayersPanel() {
     const {vendors = []} = this.props.movieDetail;
 
-    return (
-        <Fragment>
-          <div className="row ui-players">
-            {
-              vendors.map((vendor, index) => {
-                return (
-                    <div key={vendor.name + index} className="col-xs-3">
-                      <a className="button small">{vendor.displayName}</a>
-                    </div>
-                )
-              })
-            }
-            <div className="col-xs-12 text comment">
-              <h5>若播放失败，请尝试不同的播放源</h5>
-            </div>
-          </div>
-        </Fragment>);
+    console.log("match=",this.props.match);
+    return videoDetailRoute(this.props);
   }
 
   showPannel() {
@@ -268,4 +255,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 //通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
-export default connect(mapStateToProps, mapDispatchToProps)(VideoDetail);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(VideoDetail));

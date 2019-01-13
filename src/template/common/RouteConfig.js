@@ -1,20 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Route, Switch} from "react-router-dom";
 import NoMatchComponent from "./NoMatchComponent";
 import HomeContent from "../home/HomeContent";
 import MainMovie from "../video/MainMovie";
-import MovieDetail from "../video/VideoDetail";
+import VideoDetail from "../video/VideoDetail";
+import VideoVender from "../video/VideoVendor";
+import VideoPlayer from "../video/VideoPlayer";
 
 export default class RouteConfig extends Component {
   render() {
     return (
         <Switch>
           <Route exact path="/" component={HomeContent}/>
-          <Route exact path="/movie" component={MainMovie}/>
-          <Route exact path="/movie/page/:pageNumber" component={MainMovie}/>
-          <Route exact path="/video/detail/:id" component={MovieDetail}/>
+          <Route path="/movie" component={MainMovie}/>
+          <Route path="/movie/page/:pageNumber" component={MainMovie}/>
+          <Route path="/video/detail/:id" component={VideoDetail}/>
           <Route component={NoMatchComponent}/>
         </Switch>
     );
   }
 }
+
+export const videoDetailRoute = (props) => {
+  return <Fragment>
+    <Route exact path={props.match.url}
+           component={() => <VideoVender movieDetail={props.movieDetail}/>} matchUrl={props.match.url}/>
+    <Route path={`${props.match.url}/play`} component={VideoPlayer}/>
+  </Fragment>
+};
